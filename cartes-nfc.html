@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Carte de visite NFC premium par Fidélys — Design sur mesure, puce NFC programmée, livraison en France. Partagez vos réseaux d'un simple tap."/>
+<title>Carte de Visite NFC — Fidélys</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #F2D06B;
+    --gold-dark: #A8832A;
+    --black: #080808;
+    --black-2: #0f0f0f;
+    --black-3: #141414;
+    --white: #F0EBE1;
+    --white-dim: rgba(240,235,225,0.55);
+    --serif: 'Playfair Display', serif;
+    --sans: 'Inter', sans-serif;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--black);
+  }
+
+  body {
+    background: transparent;
+    color: var(--white);
+    font-family: var(--sans);
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Grain */
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 1000; opacity: 0.3;
+  }
+
+  /* — FOND ANIMÉ — */
+  .bg-blobs {
+    position: fixed; inset: 0; z-index: -1;
+    pointer-events: none; overflow: hidden;
+  }
+  .bg-blob {
+    position: absolute; border-radius: 50%;
+    filter: blur(130px);
+  }
+  .bg-blob-1 {
+    width: 55vw; height: 55vw;
+    background: radial-gradient(circle, rgba(201,168,76,0.08), transparent 70%);
+    top: -15vw; left: -10vw;
+    animation: blob1 30s ease-in-out infinite;
+  }
+  .bg-blob-2 {
+    width: 45vw; height: 45vw;
+    background: radial-gradient(circle, rgba(201,168,76,0.06), transparent 70%);
+    bottom: -12vw; right: -8vw;
+    animation: blob2 38s ease-in-out infinite;
+  }
+  .bg-blob-3 {
+    width: 35vw; height: 35vw;
+    background: radial-gradient(circle, rgba(168,131,42,0.04), transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: blob3 22s ease-in-out infinite;
+  }
+  @keyframes blob1 {
+    0%,100% { transform: translate(0,0); }
+    25% { transform: translate(4vw, 5vh); }
+    50% { transform: translate(2vw, -6vh); }
+    75% { transform: translate(-5vw, 3vh); }
+  }
+  @keyframes blob2 {
+    0%,100% { transform: translate(0,0); }
+    30% { transform: translate(-4vw, -4vh); }
+    65% { transform: translate(-2vw, 6vh); }
+    85% { transform: translate(5vw, -2vh); }
+  }
+  @keyframes blob3 {
+    0%,100% { opacity: 0.5; transform: translate(-50%,-50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%,-50%) scale(1.4); }
+  }
+
+  /* Grid */
+  .bg-grid {
+    position: fixed; inset: 0; z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+  }
+
+  /* Cursor */
+  .cursor {
+    position: fixed; width: 7px; height: 7px;
+    background: var(--gold); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%,-50%);
+  }
+  .cursor-ring {
+    position: fixed; width: 28px; height: 28px;
+    border: 1px solid rgba(201,168,76,0.4); border-radius: 50%;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: all 0.12s ease;
+  }
+
+  /* — NAV — */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index: 100;
+    padding: 24px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(201,168,76,0.06);
+    background: rgba(8,8,8,0.88);
+    backdrop-filter: blur(16px);
+  }
+  .nav-logo {
+    font-family: var(--serif); font-size: 20px; font-weight: 700;
+    letter-spacing: 6px; color: var(--gold); text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold-light); }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    font-size: 9px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--white-dim); text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+  .nav-cta {
+    font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+    color: #fff; font-weight: 600; padding: 10px 22px;
+    text-decoration: none; border-radius: 6px;
+    background: radial-gradient(150% 180% at 11.14% 140%, #1a1000 37.35%, #3a2800 61.36%, #7a5a00 78.42%, #C9A84C 89.52%, #F2D06B 100%);
+    border: 1px solid rgba(201,168,76,0.2);
+    transition: all 0.5s;
+  }
+  .nav-cta:hover {
+    background: radial-gradient(120% 103% at 0% 91.51%, #F2D06B 0%, #C9A84C 8.8%, #a07820 21.44%, #3a2800 71.34%, #1a1000 85.76%);
+    border-color: rgba(242,208,107,0.4);
+  }
+
+  /* — HERO — */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 140px 60px 80px;
+    position: relative; overflow: hidden;
+  }
+
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; max-width: 1200px; width: 100%;
+    align-items: center;
+  }
+
+  .hero-eyebrow {
+    font-size: 9px; letter-spacing: 5px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(44px, 5.5vw, 76px);
+    font-weight: 400; line-height: 1.08;
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-sub {
+    font-size: 13px; line-height: 1.85; font-weight: 300;
+    color: var(--white-dim); max-width: 400px; margin-bottom: 44px;
+    opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .hero-actions {
+    display: flex; gap: 16px; align-items: center;
+    opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  /* — CARD 3D — */
+  .card-scene {
+    perspective: 1000px;
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
+  }
+  .card-3d {
+    width: 340px; height: 214px;
+    border-radius: 14px;
+    position: relative; transform-style: preserve-3d;
+    transform: rotateY(-15deg) rotateX(5deg);
+    animation: cardFloat 4s ease-in-out infinite;
+    will-change: transform;
+  }
+  @keyframes cardFloat {
+    0%,100% { transform: rotateY(-15deg) rotateX(5deg) translateY(0); }
+    50% { transform: rotateY(-15deg) rotateX(5deg) translateY(-14px); }
+  }
+  .card-face {
+    position: absolute; inset: 0;
+    border-radius: 14px;
+    backface-visibility: hidden; overflow: hidden;
+  }
+  .card-front {
+    background: #0a0a0a;
+    border: 1px solid rgba(201,168,76,0.22);
+    box-shadow:
+      0 40px 100px rgba(0,0,0,0.95),
+      0 0 0 1px rgba(201,168,76,0.06),
+      inset 0 1px 0 rgba(201,168,76,0.1);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card-front::before {
+    content: '';
+    position: absolute; top: -60%; left: -30%;
+    width: 80%; height: 220%;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.035), transparent);
+    transform: rotate(-25deg);
+    pointer-events: none;
+  }
+  .card-logo-main {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    position: relative; z-index: 1;
+  }
+  .card-logo-mark {
+    font-family: var(--serif); font-size: 68px; font-weight: 700;
+    font-style: italic; color: var(--gold); line-height: 1;
+  }
+  .card-logo-name {
+    font-size: 7px; letter-spacing: 9px; text-transform: uppercase;
+    color: rgba(201,168,76,0.45); margin-left: 9px;
+  }
+  .card-nfc-corner {
+    position: absolute; top: 50%; right: 22px; opacity: 0.4;
+    transform: translateY(-50%) scaleX(-1);
+  }
+
+  /* NFC pulse */
+  .nfc-pulse {
+    position: absolute; bottom: -54px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .nfc-pulse-rings { position: relative; width: 40px; height: 40px; }
+  .nfc-ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.35);
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    animation: nfcPulse 2s ease-out infinite;
+  }
+  .nfc-ring:nth-child(1) { width: 16px; height: 16px; animation-delay: 0s; }
+  .nfc-ring:nth-child(2) { width: 28px; height: 28px; animation-delay: 0.4s; }
+  .nfc-ring:nth-child(3) { width: 40px; height: 40px; animation-delay: 0.8s; }
+  @keyframes nfcPulse {
+    0% { opacity: 0.7; transform: translate(-50%,-50%) scale(0.8); }
+    100% { opacity: 0; transform: translate(-50%,-50%) scale(1.4); }
+  }
+  .nfc-label {
+    font-size: 7px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); opacity: 0.5; margin-top: 14px;
+  }
+
+  /* — SECTIONS — */
+  .section-eyebrow {
+    font-size: 9px; letter-spacing: 5px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: var(--serif); font-size: clamp(34px, 4vw, 56px);
+    font-weight: 400; line-height: 1.1; margin-bottom: 72px;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  /* HOW */
+  #how { padding: 120px 60px; position: relative; }
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; max-width: 1200px;
+  }
+  .step-card {
+    background: rgba(15,15,15,0.9);
+    border: 1px solid rgba(255,255,255,0.04);
+    padding: 48px 36px;
+    position: relative; overflow: hidden;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .step-card:hover {
+    border-color: rgba(201,168,76,0.15);
+    background: rgba(20,20,20,0.95);
+  }
+  .step-card::after {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.5), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .step-card:hover::after { opacity: 1; }
+  .step-num {
+    font-family: var(--serif); font-size: 64px; font-weight: 400;
+    color: rgba(201,168,76,0.07); line-height: 1;
+    margin-bottom: 24px; transition: color 0.3s;
+  }
+  .step-card:hover .step-num { color: rgba(201,168,76,0.15); }
+  .step-icon {
+    width: 40px; height: 40px; margin-bottom: 20px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(201,168,76,0.15); border-radius: 8px;
+  }
+  .step-icon svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+  .step-title {
+    font-family: var(--serif); font-size: 20px; font-weight: 400;
+    margin-bottom: 14px;
+  }
+  .step-desc { font-size: 12px; line-height: 1.85; color: var(--white-dim); }
+
+  /* INCLUS */
+  #inclus {
+    padding: 120px 60px;
+    background: rgba(10,10,10,0.92);
+    position: relative; overflow: hidden;
+  }
+  #inclus::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .inclus-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; max-width: 1200px; align-items: center;
+  }
+  .inclus-list { list-style: none; }
+  .inclus-item {
+    display: flex; align-items: flex-start; gap: 18px;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    opacity: 0; transform: translateX(-16px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  .inclus-item.visible { opacity: 1; transform: translateX(0); }
+  .inclus-check {
+    width: 18px; height: 18px; flex-shrink: 0;
+    border: 1px solid rgba(201,168,76,0.5); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+  }
+  .inclus-check::after { content: '✓'; font-size: 9px; color: var(--gold); }
+  .inclus-text strong {
+    display: block; font-size: 13px; font-weight: 500;
+    letter-spacing: 0.3px; margin-bottom: 4px;
+  }
+  .inclus-text span { font-size: 11px; color: var(--white-dim); line-height: 1.7; }
+
+  /* Phone mockup */
+  .phone-mockup {
+    display: flex; justify-content: center; align-items: center;
+    position: relative;
+  }
+  .phone {
+    width: 234px; height: 450px;
+    background: #0a0a0a;
+    border-radius: 34px;
+    border: 1px solid rgba(201,168,76,0.15);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.02);
+    overflow: hidden; position: relative;
+    animation: phoneFloat 4s ease-in-out infinite;
+  }
+  @keyframes phoneFloat {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .phone-notch {
+    width: 76px; height: 22px;
+    background: #060606;
+    border-radius: 0 0 14px 14px;
+    margin: 0 auto; position: relative; z-index: 2;
+  }
+  .phone-screen {
+    padding: 14px;
+    display: flex; flex-direction: column; align-items: center; gap: 11px;
+  }
+  .phone-avatar {
+    width: 66px; height: 66px; border-radius: 50%;
+    background: linear-gradient(135deg, #1e1500, #3a2c00);
+    border: 1.5px solid rgba(201,168,76,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-size: 24px; color: var(--gold); font-style: italic;
+  }
+  .phone-pname {
+    font-family: var(--serif); font-size: 17px; font-weight: 400;
+    text-align: center; color: var(--white);
+  }
+  .phone-ptitle {
+    font-size: 7px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); text-align: center; opacity: 0.8;
+  }
+  .phone-divider {
+    width: 36px; height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.4), transparent);
+  }
+  .phone-links { display: flex; flex-direction: column; gap: 7px; width: 100%; }
+  .phone-link {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 9px; padding: 9px 14px;
+    display: flex; align-items: center; gap: 9px;
+  }
+  .phone-link-icon {
+    width: 18px; height: 18px; border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .phone-link-text { font-size: 8px; letter-spacing: 1px; color: var(--white-dim); }
+  .phone-glow {
+    position: absolute; bottom: -80px; left: 50%; transform: translateX(-50%);
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* TARIF */
+  #tarif { padding: 120px 60px; position: relative; }
+  .tarif-card {
+    max-width: 620px; margin: 0 auto;
+    background: rgba(12,12,12,0.95);
+    border: 1px solid rgba(201,168,76,0.1);
+    border-radius: 20px; padding: 60px;
+    position: relative; overflow: hidden;
+    text-align: center;
+  }
+  .tarif-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.5), transparent);
+  }
+  .tarif-particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .tarif-particles span {
+    position: absolute; border-radius: 50%; background: var(--gold);
+    animation: particleFloat 10s ease-in-out infinite;
+  }
+  @keyframes particleFloat {
+    0%,100% { transform: translateY(0) scale(1); opacity: 0.15; }
+    50% { transform: translateY(-28px) scale(1.2); opacity: 0.4; }
+  }
+  .tarif-eyebrow {
+    font-size: 8px; letter-spacing: 5px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 24px; opacity: 0.8;
+  }
+  .tarif-price {
+    font-family: var(--serif); font-size: 96px; font-weight: 400;
+    line-height: 1; color: var(--white); margin-bottom: 8px;
+  }
+  .tarif-price sup { font-size: 38px; vertical-align: super; }
+  .tarif-price-note {
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--white-dim); margin-bottom: 40px;
+  }
+  .tarif-features {
+    display: flex; flex-direction: column;
+    margin-bottom: 40px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+  .tarif-feature {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .tarif-feature-name {
+    font-size: 11px; letter-spacing: 0.5px; color: var(--white-dim); text-align: left;
+  }
+  .tarif-feature-val {
+    font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; white-space: nowrap; margin-left: 16px;
+  }
+  .tarif-options {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 10px; margin-bottom: 36px;
+  }
+  .tarif-option {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 10px; padding: 20px 14px;
+    text-align: center; transition: all 0.3s;
+  }
+  .tarif-option:hover {
+    background: rgba(201,168,76,0.06);
+    border-color: rgba(201,168,76,0.2);
+  }
+  .tarif-option-title {
+    font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 10px; opacity: 0.8;
+  }
+  .tarif-option-price {
+    font-family: var(--serif); font-size: 28px; font-weight: 400;
+    color: var(--white); margin-bottom: 6px;
+  }
+  .tarif-option-price sup { font-size: 13px; }
+  .tarif-option-note { font-size: 9px; color: var(--white-dim); line-height: 1.5; }
+
+  /* FORM */
+  #commander {
+    padding: 120px 60px;
+    background: rgba(10,10,10,0.92);
+  }
+  .form-wrap { max-width: 680px; margin: 0 auto; }
+  .form-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 14px; margin-bottom: 14px;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group.full { grid-column: 1/-1; }
+  .form-label {
+    font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(201,168,76,0.7);
+  }
+  .form-input, .form-textarea {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px; padding: 13px 16px;
+    font-family: var(--sans); font-size: 12px; font-weight: 300;
+    color: var(--white); outline: none;
+    transition: border-color 0.3s, background 0.3s;
+    cursor: none;
+  }
+  .form-input:focus, .form-textarea:focus {
+    border-color: rgba(201,168,76,0.35);
+    background: rgba(201,168,76,0.03);
+  }
+  .form-textarea { resize: vertical; min-height: 96px; }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(240,235,225,0.2); }
+  .form-radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
+  .form-radio {
+    display: flex; align-items: center; gap: 8px;
+    cursor: none; padding: 10px 14px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 7px; transition: all 0.3s;
+  }
+  .form-radio:hover { border-color: rgba(201,168,76,0.25); }
+  .form-radio input { display: none; }
+  .form-radio.selected {
+    background: rgba(201,168,76,0.07);
+    border-color: rgba(201,168,76,0.35);
+    color: var(--gold);
+  }
+  .form-radio-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    border: 1px solid var(--gold); flex-shrink: 0;
+  }
+  .form-radio.selected .form-radio-dot { background: var(--gold); }
+  .form-radio-text { font-size: 10px; letter-spacing: 0.5px; }
+  .form-submit {
+    width: 100%; padding: 17px;
+    font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+    font-weight: 600; color: #fff;
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 8px; cursor: none;
+    background: radial-gradient(150% 180% at 11.14% 140%, #1a1000 37.35%, #3a2800 61.36%, #7a5a00 78.42%, #C9A84C 89.52%, #F2D06B 100%);
+    margin-top: 20px; transition: all 0.5s;
+  }
+  .form-submit:hover {
+    background: radial-gradient(120% 103% at 0% 91.51%, #F2D06B 0%, #C9A84C 8.8%, #a07820 21.44%, #3a2800 71.34%, #1a1000 85.76%);
+    border-color: rgba(242,208,107,0.4);
+  }
+  .form-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+  .form-payment-note {
+    margin-top: 14px; text-align: center;
+    font-size: 9px; letter-spacing: 0.5px;
+    color: rgba(240,235,225,0.25); line-height: 1.7;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 36px 60px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-back {
+    font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--white-dim); text-decoration: none;
+    transition: color 0.3s; display: flex; align-items: center; gap: 8px;
+  }
+  .footer-back:hover { color: var(--gold); }
+  .footer-copy { font-size: 9px; color: rgba(240,235,225,0.2); }
+
+  /* Buttons */
+  .btn-primary {
+    font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+    color: #fff; padding: 15px 32px; text-decoration: none;
+    border-radius: 8px; display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 600; cursor: none;
+    background: radial-gradient(150% 180% at 11.14% 140%, #1a1000 37.35%, #3a2800 61.36%, #7a5a00 78.42%, #C9A84C 89.52%, #F2D06B 100%);
+    border: 1px solid rgba(201,168,76,0.2);
+    transition: all 0.5s;
+  }
+  .btn-primary:hover {
+    background: radial-gradient(120% 103% at 0% 91.51%, #F2D06B 0%, #C9A84C 8.8%, #a07820 21.44%, #3a2800 71.34%, #1a1000 85.76%);
+    border-color: rgba(242,208,107,0.4);
+  }
+  .btn-ghost {
+    font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--white-dim); padding: 15px 22px; text-decoration: none;
+    border-radius: 8px; display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.3s; cursor: none;
+  }
+  .btn-ghost:hover { color: var(--gold); border-color: rgba(201,168,76,0.25); }
+
+  /* Reveal */
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 18px 20px; }
+    .nav-links { display: none; }
+    #hero { padding: 100px 20px 60px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 56px; }
+    .card-scene { order: -1; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .inclus-grid { grid-template-columns: 1fr; }
+    .phone-mockup { display: none; }
+    .tarif-options { grid-template-columns: 1fr; }
+    .tarif-card { padding: 36px 20px; }
+    .form-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 14px; text-align: center; }
+    #how, #inclus, #tarif, #commander { padding: 72px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-blobs" aria-hidden="true">
+  <div class="bg-blob bg-blob-1"></div>
+  <div class="bg-blob bg-blob-2"></div>
+  <div class="bg-blob bg-blob-3"></div>
+</div>
+<div class="bg-grid" aria-hidden="true"></div>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">FIDÉL<span>YS</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="#how" data-section="how">Comment ça marche</a></li>
+    <li><a href="#inclus" data-section="inclus">Inclus</a></li>
+    <li><a href="#tarif" data-section="tarif">Tarifs</a></li>
+    <li><a href="#commander" data-section="commander">Commander</a></li>
+  </ul>
+  <a href="#commander" class="nav-cta">Commander ma carte</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <p class="hero-eyebrow">◆ Nouvelle prestation Fidélys</p>
+      <h1 class="hero-title">La carte de visite<br><em>qui parle</em><br>pour vous.</h1>
+      <p class="hero-sub">Une carte PVC premium avec puce NFC intégrée. Un tap suffit pour partager vos réseaux, votre contact et votre univers, instantanément, sans application.</p>
+      <div class="hero-actions">
+        <a href="#commander" class="btn-primary">Commander · 45€</a>
+        <a href="#how" class="btn-ghost">
+          Découvrir
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 3D -->
+    <div class="card-scene">
+      <div style="position:relative;">
+        <div class="card-3d" id="card3d">
+          <div class="card-face card-front">
+            <div class="card-logo-main">
+              <div class="card-logo-mark">F</div>
+              <div class="card-logo-name">FIDÉLYS</div>
+            </div>
+            <div class="card-nfc-corner">
+              <svg viewBox="0 0 32 32" width="26" height="26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 16 C10 12.5 12.5 9.5 16 8" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.5"/>
+                <path d="M10 16 C10 19.5 12.5 22.5 16 24" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.5"/>
+                <path d="M14 16 C14 13.8 15.1 11.8 17 10.5" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.75"/>
+                <path d="M14 16 C14 18.2 15.1 20.2 17 21.5" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.75"/>
+                <path d="M18 16 C18 15 18.5 14 19.5 13.3" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <path d="M18 16 C18 17 18.5 18 19.5 18.7" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" fill="none"/>
+                <circle cx="21.5" cy="16" r="1.5" fill="#C9A84C"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="nfc-pulse">
+          <div class="nfc-pulse-rings">
+            <div class="nfc-ring"></div>
+            <div class="nfc-ring"></div>
+            <div class="nfc-ring"></div>
+          </div>
+          <div class="nfc-label">NFC Actif</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div style="max-width:1200px;">
+    <p class="section-eyebrow reveal">◆ Le processus</p>
+    <h2 class="section-title reveal">Comment ça <em>fonctionne</em> ?</h2>
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-num">01</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <h3 class="step-title">Vous envoyez votre contenu</h3>
+        <p class="step-desc">Nom, titre, photo, couleurs, logo, ainsi que votre lien Linktree, Biolink ou tout autre lien de profil. Pas de lien ? On vous aide à en créer un.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">02</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h3 class="step-title">On crée votre design</h3>
+        <p class="step-desc">Nous concevons votre carte sur mesure et vous envoyons un aperçu pour validation. Vous fournissez votre logo ? On l'intègre. Vous n'en avez pas ? On crée un design élégant pour vous.</p>
+      </div>
+      <div class="step-card reveal">
+        <div class="step-num">03</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <h3 class="step-title">Impression & livraison</h3>
+        <p class="step-desc">Votre carte PVC est imprimée avec la puce NFC programmée sur votre lien. Livraison gratuite partout en France, en main propre au Havre ou par envoi postal. International : frais à la charge du client.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INCLUS -->
+<section id="inclus">
+  <div class="inclus-grid" style="max-width:1200px; margin:0 auto;">
+    <div>
+      <p class="section-eyebrow reveal">◆ Ce qui est inclus</p>
+      <h2 class="section-title reveal">Tout compris,<br><em>rien à gérer.</em></h2>
+      <ul class="inclus-list">
+        <li class="inclus-item reveal">
+          <div class="inclus-check"></div>
+          <div class="inclus-text">
+            <strong>Carte PVC premium</strong>
+            <span>Format CB standard (85,6 × 54 mm), finition brillante ou mate, impression haute résolution recto.</span>
+          </div>
+        </li>
+        <li class="inclus-item reveal">
+          <div class="inclus-check"></div>
+          <div class="inclus-text">
+            <strong>Puce NFC intégrée</strong>
+            <span>Compatible iPhone (iOS 13+) et Android. Un simple tap sur votre carte redirige vers votre page digitale, aucune app nécessaire.</span>
+          </div>
+        </li>
+        <li class="inclus-item reveal">
+          <div class="inclus-check"></div>
+          <div class="inclus-text">
+            <strong>Design personnalisé</strong>
+            <span>Logo, couleurs, typographie : votre carte reflète votre identité. Aperçu envoyé avant impression pour validation.</span>
+          </div>
+        </li>
+        <li class="inclus-item reveal">
+          <div class="inclus-check"></div>
+          <div class="inclus-text">
+            <strong>Programmation du NFC</strong>
+            <span>La puce est programmée sur le lien de votre choix (Linktree, site web, profil réseaux). Modifiable à tout moment si vous changez de lien.</span>
+          </div>
+        </li>
+        <li class="inclus-item reveal">
+          <div class="inclus-check"></div>
+          <div class="inclus-text">
+            <strong>Suivi personnalisé</strong>
+            <span>Caleb reste disponible pour toute modification ou question. Un service local, humain, et réactif.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Phone mockup -->
+    <div class="phone-mockup reveal">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="phone-avatar">S</div>
+          <div class="phone-pname">Sophie Martin</div>
+          <div class="phone-ptitle">Directrice Artistique</div>
+          <div class="phone-divider"></div>
+          <div class="phone-links">
+            <div class="phone-link">
+              <div class="phone-link-icon" style="background:rgba(29,161,242,0.12);">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="rgba(29,161,242,0.85)"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </div>
+              <span class="phone-link-text">Twitter / X</span>
+            </div>
+            <div class="phone-link">
+              <div class="phone-link-icon" style="background:rgba(225,48,108,0.12);">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(225,48,108,0.85)" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="rgba(225,48,108,0.85)" stroke="none"/></svg>
+              </div>
+              <span class="phone-link-text">Instagram</span>
+            </div>
+            <div class="phone-link">
+              <div class="phone-link-icon" style="background:rgba(0,119,181,0.12);">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="rgba(0,119,181,0.85)"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </div>
+              <span class="phone-link-text">LinkedIn</span>
+            </div>
+            <div class="phone-link">
+              <div class="phone-link-icon" style="background:rgba(37,211,102,0.12);">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="rgba(37,211,102,0.85)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+              </div>
+              <span class="phone-link-text">WhatsApp</span>
+            </div>
+            <div class="phone-link">
+              <div class="phone-link-icon" style="background:rgba(201,168,76,0.12);">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.85)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              <span class="phone-link-text">Site web</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-glow"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TARIF -->
+<section id="tarif">
+  <div style="max-width:1200px; margin:0 auto; text-align:center;">
+    <p class="section-eyebrow reveal">◆ Tarification</p>
+    <h2 class="section-title reveal" style="text-align:center;">Simple.<br><em>Transparent.</em></h2>
+    <div class="tarif-card reveal">
+      <div class="tarif-particles" id="tarifParticles"></div>
+      <div class="tarif-eyebrow">Carte de visite NFC · Prix unique</div>
+      <div class="tarif-price"><sup>€</sup>45</div>
+      <div class="tarif-price-note">par carte · tout inclus</div>
+
+      <div class="tarif-features">
+        <div class="tarif-feature">
+          <span class="tarif-feature-name">Carte PVC premium imprimée</span>
+          <span class="tarif-feature-val">Inclus</span>
+        </div>
+        <div class="tarif-feature">
+          <span class="tarif-feature-name">Puce NFC programmée</span>
+          <span class="tarif-feature-val">Inclus</span>
+        </div>
+        <div class="tarif-feature">
+          <span class="tarif-feature-name">Design personnalisé + aperçu</span>
+          <span class="tarif-feature-val">Inclus</span>
+        </div>
+        <div class="tarif-feature">
+          <span class="tarif-feature-name">Livraison France (main propre ou postal)</span>
+          <span class="tarif-feature-val">Inclus</span>
+        </div>
+        <div class="tarif-feature">
+          <span class="tarif-feature-name">Délai de production & livraison</span>
+          <span class="tarif-feature-val">5–7 jours ouvrés</span>
+        </div>
+      </div>
+
+      <div class="tarif-options">
+        <div class="tarif-option">
+          <div class="tarif-option-title">Logo fourni</div>
+          <div class="tarif-option-price"><sup>+</sup>€0</div>
+          <div class="tarif-option-note">Vous envoyez votre logo par WhatsApp</div>
+        </div>
+        <div class="tarif-option">
+          <div class="tarif-option-title">Sans logo</div>
+          <div class="tarif-option-price"><sup>+</sup>€50</div>
+          <div class="tarif-option-note">Création graphique complète from scratch</div>
+        </div>
+      </div>
+
+      <a href="#commander" class="btn-primary">Commander ma carte</a>
+    </div>
+  </div>
+</section>
+
+<!-- COMMANDER -->
+<section id="commander">
+  <div class="form-wrap">
+    <p class="section-eyebrow reveal">◆ Commande</p>
+    <h2 class="section-title reveal">Passez votre<br><em>commande.</em></h2>
+    <div id="form-success" style="display:none; text-align:center; padding:56px 0;">
+      <div style="font-size:36px; margin-bottom:16px; color:var(--gold);">✓</div>
+      <h3 style="font-family:var(--serif); font-size:30px; font-weight:400; margin-bottom:14px;">Demande <em style="color:var(--gold);">envoyée !</em></h3>
+      <p style="font-size:12px; color:var(--white-dim); line-height:1.9;">Merci pour votre commande. Caleb vous contacte très bientôt<br>sur WhatsApp ou par email pour finaliser votre carte.</p>
+    </div>
+    <form id="commande-form" name="commande-carte-nfc" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="commande-carte-nfc"/>
+      <p style="display:none;"><input name="bot-field"/></p>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Prénom & Nom</label>
+          <input type="text" name="nom" class="form-input" placeholder="Sophie Martin" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Téléphone</label>
+          <input type="tel" name="telephone" class="form-input" placeholder="06 XX XX XX XX" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" name="email" class="form-input" placeholder="sophie@exemple.fr" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Activité / Métier</label>
+          <input type="text" name="activite" class="form-input" placeholder="Directrice artistique" required/>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Votre lien (Linktree, Biolink, site...)</label>
+          <input type="text" name="lien-profil" class="form-input" placeholder="https://linktr.ee/sophiemartin"/>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Finition souhaitée</label>
+          <div class="form-radio-group" id="finitionGroup">
+            <label class="form-radio" onclick="selectRadio(this, 'finitionGroup')">
+              <input type="radio" name="finition" value="Brillante" required/>
+              <div class="form-radio-dot"></div>
+              <span class="form-radio-text">Brillante</span>
+            </label>
+            <label class="form-radio" onclick="selectRadio(this, 'finitionGroup')">
+              <input type="radio" name="finition" value="Mate"/>
+              <div class="form-radio-dot"></div>
+              <span class="form-radio-text">Mate</span>
+            </label>
+          </div>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Vous avez un logo ?</label>
+          <div class="form-radio-group" id="logoGroup">
+            <label class="form-radio" onclick="selectRadio(this, 'logoGroup')">
+              <input type="radio" name="logo" value="Oui, logo fourni par WhatsApp"/>
+              <div class="form-radio-dot"></div>
+              <span class="form-radio-text">Oui, je l'envoie par WhatsApp</span>
+            </label>
+            <label class="form-radio" onclick="selectRadio(this, 'logoGroup')">
+              <input type="radio" name="logo" value="Non, création from scratch (+50€)"/>
+              <div class="form-radio-dot"></div>
+              <span class="form-radio-text">Non · création from scratch (+50€)</span>
+            </label>
+          </div>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Couleurs souhaitées / Infos supplémentaires</label>
+          <textarea name="informations" class="form-textarea" placeholder="Ex : tons dorés et noir, style élégant..."></textarea>
+        </div>
+      </div>
+      <button type="submit" class="form-submit">◆ Envoyer ma demande · 45€</button>
+      <p class="form-payment-note">Paiement arrangé avec Caleb après validation du design · Virement ou PayPal</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="nav-logo" style="font-size:17px;">FIDÉL<span>YS</span></a>
+  <a href="https://fidelys.netlify.app/" target="_blank" class="footer-back">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Retour au site principal
+  </a>
+  <span class="footer-copy">© 2025 Fidélys · Le Havre</span>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  if (cursor && ring) {
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    });
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Inclus stagger
+  const inclusObs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 110);
+        inclusObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.inclus-item').forEach(el => inclusObs.observe(el));
+
+  // Tarif particles
+  (function() {
+    const container = document.getElementById('tarifParticles');
+    if (!container) return;
+    for (let i = 0; i < 18; i++) {
+      const s = document.createElement('span');
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.animationDuration = (8 + Math.random() * 12) + 's';
+      s.style.animationDelay = (Math.random() * 10) + 's';
+      s.style.width = s.style.height = (1 + Math.random() * 1.5) + 'px';
+      container.appendChild(s);
+    }
+  })();
+
+  // Nav scroll
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.borderBottomColor =
+      window.scrollY > 50 ? 'rgba(201,168,76,0.1)' : 'rgba(201,168,76,0.06)';
+  });
+
+  // Nav scroll-spy
+  (function() {
+    const navLinks = document.querySelectorAll('.nav-links a[data-section]');
+    const spy = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          const active = document.querySelector('.nav-links a[data-section="' + entry.target.id + '"]');
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    ['how','inclus','tarif','commander'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) spy.observe(el);
+    });
+  })();
+
+  // Radio select
+  function selectRadio(el, groupId) {
+    document.querySelectorAll('#' + groupId + ' .form-radio').forEach(r => r.classList.remove('selected'));
+    el.classList.add('selected');
+    el.querySelector('input[type="radio"]').checked = true;
+  }
+
+  // Card 3D tilt
+  (function() {
+    const cardScene = document.querySelector('.card-scene');
+    const card3d = document.getElementById('card3d');
+    if (!cardScene || !card3d) return;
+    let rafId = null, currentX = -15, currentY = 5, targetX = -15, targetY = 5, hovered = false;
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function tick() {
+      currentX = lerp(currentX, targetX, 0.08);
+      currentY = lerp(currentY, targetY, 0.08);
+      card3d.style.transform = 'rotateY(' + currentX + 'deg) rotateX(' + currentY + 'deg)';
+      rafId = requestAnimationFrame(tick);
+    }
+    cardScene.addEventListener('mouseenter', () => {
+      hovered = true;
+      card3d.style.animation = 'none';
+      if (!rafId) tick();
+    });
+    cardScene.addEventListener('mousemove', e => {
+      if (!hovered) return;
+      const rect = cardScene.getBoundingClientRect();
+      targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
+      targetY = -((e.clientY - rect.top) / rect.height - 0.5) * 10;
+    });
+    cardScene.addEventListener('mouseleave', () => {
+      hovered = false; targetX = -15; targetY = 5;
+      setTimeout(() => {
+        if (!hovered) {
+          cancelAnimationFrame(rafId); rafId = null;
+          card3d.style.animation = 'cardFloat 4s ease-in-out infinite';
+          card3d.style.transform = '';
+        }
+      }, 800);
+    });
+  })();
+
+  // Form submit
+  const commandeForm = document.getElementById('commande-form');
+  if (commandeForm) {
+    commandeForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = commandeForm.querySelector('.form-submit');
+      const originalText = btn.textContent;
+      btn.textContent = '⏳ Envoi en cours...';
+      btn.disabled = true;
+      try {
+        await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(new FormData(commandeForm)).toString()
+        });
+        commandeForm.style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+        document.getElementById('form-success').scrollIntoView({ behavior: 'smooth' });
+      } catch(err) {
+        btn.textContent = originalText;
+        btn.disabled = false;
+        alert('Une erreur est survenue. Veuillez réessayer ou contacter Caleb directement sur WhatsApp.');
+      }
+    });
+  }
+</script>
+</body>
+</html>
