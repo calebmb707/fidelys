@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fidélys Agence Digitale Locale</title>
+<link rel="icon" type="image/png" href="images/logo_fidelys.png">
+<link rel="apple-touch-icon" href="images/logo_fidelys.png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Nunito:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -16,6 +18,8 @@
   --white: #FFFFFF;
   --gray: #888;
   --light-gray: #333;
+  --gold: #C9A84C;
+  --gold-dim: #a8893a;
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -39,55 +43,35 @@ body {
 /* ===================== NAV ===================== */
 nav {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 100;
-  padding: 0 5vw;
-  height: 68px;
+  width: calc(100% - 40px);
+  max-width: 900px;
+  padding: 0 24px;
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(10,10,10,0.85);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
 .nav-logo {
   display: flex;
   align-items: center;
-  gap: 10px;
   text-decoration: none;
 }
 
-.nav-icon {
-  width: 36px;
+.nav-logo img {
   height: 36px;
-  border: 1.5px solid var(--green);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 10px rgba(0,255,135,0.3);
+  width: auto;
+  display: block;
 }
-
-.nav-icon span {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 800;
-  font-size: 18px;
-  color: var(--green);
-  text-shadow: 0 0 8px rgba(0,255,135,0.8);
-  line-height: 1;
-}
-
-.nav-wordmark {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 800;
-  font-size: 16px;
-  letter-spacing: 0.1em;
-  color: var(--white);
-  text-transform: uppercase;
-}
-
-.nav-wordmark em { color: var(--green); font-style: normal; }
 
 .nav-links {
   display: flex;
@@ -107,17 +91,18 @@ nav {
 .nav-links a:hover { color: var(--white); }
 
 .nav-cta {
-  background: var(--green) !important;
-  color: var(--black) !important;
-  padding: 8px 18px;
-  border-radius: 8px;
-  font-weight: 600 !important;
-  font-size: 13px !important;
-  transition: box-shadow 0.2s, transform 0.2s !important;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--black);
+  text-decoration: none;
+  background: var(--green);
+  border-radius: 50px;
+  padding: 10px 24px;
+  transition: background 0.2s, transform 0.2s;
 }
 
 .nav-cta:hover {
-  box-shadow: 0 0 20px rgba(0,255,135,0.4) !important;
+  background: var(--green-dim);
   transform: translateY(-1px);
 }
 
@@ -147,9 +132,32 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 100px 5vw 80px;
+  padding: 140px 5vw 80px;
   position: relative;
   background: var(--dark);
+}
+
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-video {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.50);
+  z-index: 1;
 }
 
 .hero-bottom-glow {
@@ -162,42 +170,6 @@ nav {
     linear-gradient(to bottom, transparent 0%, var(--dark) 62%),
     radial-gradient(ellipse 80% 85% at 50% 95%, rgba(0,255,135,0.32) 0%, transparent 58%);
   z-index: 2;
-  pointer-events: none;
-}
-
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.hero-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-}
-
-.hero-orb-1 {
-  width: 500px; height: 500px;
-  background: rgba(0,255,135,0.06);
-  top: -100px; right: -100px;
-}
-
-.hero-orb-2 {
-  width: 300px; height: 300px;
-  background: rgba(0,255,135,0.04);
-  bottom: 0; left: 10%;
-}
-
-.hero-grid {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background-image:
-    linear-gradient(rgba(0,255,135,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,255,135,0.04) 1px, transparent 1px);
-  background-size: 60px 60px;
   pointer-events: none;
 }
 
@@ -230,9 +202,9 @@ nav {
   margin: 0 auto;
   text-align: center;
   width: 100%;
-  background: rgba(255,255,255,0.03);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(0,0,0,0.15);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   border: 1px solid rgba(255,255,255,0.07);
   border-radius: 32px;
   padding: 56px 48px;
@@ -975,168 +947,98 @@ section:not(#hero)::before {
   overflow: hidden;
 }
 
-.resultats-carousel { overflow: hidden; }
-
-.resultats-track {
-  display: flex;
-  gap: 20px;
-  transition: transform 0.55s cubic-bezier(0.23, 1, 0.32, 1);
-  will-change: transform;
+/* ===================== TÉMOIGNAGES (grille bento) ===================== */
+.temoignages-bento {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 16px;
+  min-height: 720px;
 }
 
-.resultat-card {
-  flex-shrink: 0;
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 20px;
-  padding: 32px;
+.temoignage-card {
+  border-radius: 16px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
   position: relative;
   overflow: hidden;
-  isolation: isolate;
-  transition: border-color 0.3s, transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s, background 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.resultat-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 110%, rgba(0,255,135,0.2), transparent 65%);
-  filter: blur(20px);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  z-index: -1;
-  pointer-events: none;
+.temoignage-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.5);
 }
 
-.resultat-card:hover::before { opacity: 1; }
+.temoignage-card.bg-noir        { background: #111111; }
+.temoignage-card.bg-vert-fonce  { background: #0a2e1a; }
+.temoignage-card.bg-vert-accent { background: #00a84a; }
 
-.resultat-card:hover {
-  border-color: rgba(0,255,135,0.25);
-  transform: translateY(-5px);
-  background: rgba(255,255,255,0.08);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 25px rgba(0,255,135,0.07);
-}
+.tc-1 { grid-column: 1; grid-row: 1 / span 2; }
+.tc-2 { grid-column: 1; grid-row: 3; }
+.tc-3 { grid-column: 2; grid-row: 1; }
+.tc-4 { grid-column: 2; grid-row: 2; }
+.tc-5 { grid-column: 2; grid-row: 3; }
+.tc-6 { grid-column: 3; grid-row: 1 / span 3; }
 
-.resultat-stars {
-  display: flex;
-  gap: 3px;
-  margin-bottom: 16px;
-}
-
-.resultat-stars span { color: var(--green); font-size: 16px; }
-
-.resultat-text {
-  font-size: 15px;
-  color: #ccc;
-  line-height: 1.7;
-  font-style: italic;
-  margin-bottom: 20px;
-}
-
-.resultat-author {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.resultat-avatar {
-  width: 42px;
-  height: 42px;
-  background: rgba(0,255,135,0.1);
-  border: 1px solid rgba(0,255,135,0.2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
+.temoignage-stars {
+  font-size: 14px;
   color: var(--green);
+  letter-spacing: 2px;
+  margin-bottom: 16px;
   flex-shrink: 0;
 }
 
-.resultat-name {
+.temoignage-card.bg-vert-accent .temoignage-stars { color: rgba(255,255,255,0.9); }
+
+.temoignage-texte {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.75;
+  font-style: italic;
+  flex-grow: 1;
+}
+
+.temoignage-card.bg-vert-accent .temoignage-texte { color: #ffffff; }
+
+.temoignage-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+  flex-shrink: 0;
+}
+
+.temoignage-auteur {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.temoignage-nom {
   font-family: 'Outfit', sans-serif;
   font-weight: 600;
   font-size: 14px;
+  color: #ffffff;
 }
 
-.resultat-role {
+.temoignage-role {
   font-size: 12px;
-  color: var(--gray);
+  color: rgba(255,255,255,0.5);
 }
 
-.resultat-stat {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(0,255,135,0.06);
-  border: 1px solid rgba(0,255,135,0.15);
-  border-radius: 8px;
-  padding: 6px 12px;
-  margin-top: 16px;
-  font-size: 12px;
-  color: var(--green);
-  font-weight: 500;
-}
+.temoignage-card.bg-vert-accent .temoignage-role { color: rgba(255,255,255,0.75); }
 
-.carousel-nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 36px;
-}
-
-.carousel-btn {
-  width: 44px;
-  height: 44px;
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.3s, border-color 0.3s, opacity 0.3s;
-  color: var(--white);
-}
-
-.carousel-btn:hover {
-  background: rgba(0,255,135,0.12);
-  border-color: rgba(0,255,135,0.35);
-}
-
-.carousel-btn:disabled {
-  opacity: 0.3;
-  cursor: default;
-  pointer-events: none;
-}
-
-.carousel-dots {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.carousel-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.2);
-  cursor: pointer;
-  transition: background 0.3s, width 0.3s, border-radius 0.3s;
+.temoignage-photo {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.12);
   flex-shrink: 0;
-}
-
-.carousel-dot.active {
-  background: var(--green);
-  width: 24px;
-  border-radius: 4px;
+  object-fit: cover;
+  display: block;
 }
 
 /* ===================== CONTACT ===================== */
@@ -1324,19 +1226,140 @@ footer {
   transform: translateY(0) scale(1);
 }
 
+/* ===================== RÉALISATIONS ===================== */
+#realisations {
+  background: var(--black);
+  position: relative;
+}
+
+.real-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fondu sur les bords */
+.real-wrapper::before,
+.real-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.real-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, var(--black), transparent);
+}
+.real-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, var(--black), transparent);
+}
+
+.real-track {
+  display: flex;
+  width: max-content;
+  animation: real-scroll 38s linear infinite;
+  padding: 12px 0 24px;
+  will-change: transform;
+}
+
+.real-card {
+  flex-shrink: 0;
+  width: 260px;
+  margin-right: 20px;
+  cursor: default;
+}
+
+.real-card-img {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #1c1c1c;
+  border: 1px solid var(--border);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.real-card:hover .real-card-img {
+  border-color: rgba(201, 168, 76, 0.35);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5), 0 0 24px rgba(201,168,76,0.08);
+}
+
+.real-placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: rgba(255,255,255,0.15);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  text-align: center;
+  padding: 20px;
+  user-select: none;
+}
+.real-placeholder-icon {
+  width: 40px;
+  height: 40px;
+  opacity: 0.15;
+}
+
+.real-card-img img {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.real-card:hover .real-card-img img {
+  transform: scale(1.05);
+}
+
+.real-card-label {
+  margin-top: 14px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  transition: color 0.25s ease;
+}
+.real-card:hover .real-card-label {
+  color: var(--gold);
+}
+
+@keyframes real-scroll {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+.real-wrapper:hover .real-track {
+  animation-play-state: paused;
+}
+
 /* ===================== RESPONSIVE ===================== */
 @media (max-width: 768px) {
+  nav { width: calc(100% - 32px); padding: 0 16px; }
   .nav-links { display: none; }
   .nav-mobile-btn { display: flex; }
 
   .nfc-layout { grid-template-columns: 1fr; gap: 48px; }
   .contact-layout { grid-template-columns: 1fr; gap: 48px; }
 
-  .resultat-card { padding: 20px; }
-  .resultat-text { font-size: 13px; line-height: 1.6; }
-  .resultat-stat { font-size: 11px; padding: 5px 10px; }
-  .resultat-name { font-size: 13px; }
-  .resultat-avatar { width: 36px; height: 36px; font-size: 14px; }
+  .temoignages-bento { grid-template-columns: 1fr; grid-template-rows: auto; min-height: unset; }
+  .tc-1, .tc-2, .tc-3, .tc-4, .tc-5, .tc-6 { grid-column: 1; grid-row: auto; }
+  .temoignage-card { padding: 20px; }
+  .temoignage-texte { font-size: 13px; }
 
   .nfc-demo-img { width: 92%; max-width: 420px; }
 
@@ -1345,6 +1368,9 @@ footer {
   .hero-content { padding: 36px 24px; border-radius: 20px; }
 
   section { padding: 72px 5vw; }
+
+  .real-wrapper::before,
+  .real-wrapper::after { width: 32px; }
 
   /* Animations au scroll plus visibles sur mobile */
   .fade-up {
@@ -1361,29 +1387,21 @@ footer {
 <!-- NAV -->
 <nav>
   <a href="#hero" class="nav-logo">
-    <div class="nav-icon"><span>F</span></div>
-    <div class="nav-wordmark"><em>F</em>IDÉLYS</div>
+    <img src="logo_fidelys.png" alt="Fidélys" height="36">
   </a>
-  <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#offres">Offres</a></li>
-    <li><a href="#nfc">Cartes NFC</a></li>
-    <li><a href="#resultats">Résultats</a></li>
-    <li><a href="https://wa.me/33753344590?text=Bonjour%2C%20je%20vous%20contacte%20depuis%20le%20site%20Fid%C3%A9lys." class="nav-cta">Nous contacter →</a></li>
-  </ul>
-  <button class="nav-mobile-btn" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </button>
+  <a href="https://wa.me/33753344590?text=Bonjour%2C%20je%20vous%20contacte%20depuis%20le%20site%20Fid%C3%A9lys." class="nav-cta">Nous contacter →</a>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
   <div class="hero-bg">
-    <div class="hero-grid"></div>
-    <div class="hero-orb hero-orb-1"></div>
-    <div class="hero-orb hero-orb-2"></div>
+    <video class="hero-video" autoplay loop muted playsinline fetchpriority="high">
+      <source src="hero-bg.webm" type="video/webm">
+    </video>
+    <div class="hero-overlay"></div>
   </div>
   <div class="hero-content">
+
 
     <h1 class="hero-title">
       Ton commerce mérite<br>
@@ -1418,7 +1436,7 @@ footer {
     <!-- Google My Business -->
     <div class="service-card fade-up">
       <div class="service-img">
-        <img src="images/gmb.jpg" alt="Google My Business">
+        <img src="images/gmb.jpg" alt="Google My Business" loading="lazy" width="800" height="168">
       </div>
       <div class="service-icon">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1433,7 +1451,7 @@ footer {
 
     <div class="service-card fade-up">
       <div class="service-img">
-        <img src="images/reseaux-sociaux.jpg" alt="Réseaux Sociaux">
+        <img src="images/reseaux-sociaux.jpg" alt="Réseaux Sociaux" loading="lazy" width="800" height="168">
       </div>
       <div class="service-icon">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1447,7 +1465,7 @@ footer {
     </div>
     <div class="service-card fade-up">
       <div class="service-img">
-        <img src="images/cartes-nfc.jpg" alt="Cartes NFC">
+        <img src="images/cartes-nfc.jpg" alt="Cartes NFC" loading="lazy" width="800" height="168">
       </div>
       <div class="service-icon">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1462,7 +1480,7 @@ footer {
     </div>
     <div class="service-card fade-up">
       <div class="service-img">
-        <img src="images/google-ads.jpg" alt="Google Ads">
+        <img src="images/google-ads.jpg" alt="Google Ads" loading="lazy" width="800" height="168">
       </div>
       <div class="service-icon">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1477,7 +1495,7 @@ footer {
     </div>
     <div class="service-card fade-up">
       <div class="service-img">
-        <img src="images/landing-pages.jpg" alt="Landing Pages">
+        <img src="images/landing-pages.jpg" alt="Landing Pages" loading="lazy" width="800" height="168">
       </div>
       <div class="service-icon">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1494,7 +1512,7 @@ footer {
     </div>
     <div class="service-card fade-up">
       <div class="service-img">
-        <img src="images/optimisation-gmb.jpg" alt="Optimisation GMB">
+        <img src="images/optimisation-gmb.jpg" alt="Optimisation GMB" loading="lazy" width="800" height="168">
       </div>
       <div class="service-icon">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1509,6 +1527,287 @@ footer {
       <div class="service-tag">199€ one-shot</div>
     </div>
   </div>
+  </div>
+</section>
+
+<!-- RÉALISATIONS -->
+<section id="realisations">
+  <div class="section-header fade-up">
+    <div class="section-badge">Réalisations</div>
+    <h2 class="section-title">Chaque client.<br><span class="accent">Une vitrine qui convertit.</span></h2>
+    <p class="section-sub">Des pages conçues pour ton métier, pas pour faire joli.</p>
+  </div>
+
+  <div class="real-wrapper">
+    <div class="real-track">
+
+      <div class="real-card">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Salon de coiffure
+          </div>
+          <img src="images/realisations/coiffure.jpg" alt="Site salon de coiffure" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Salon de coiffure</div>
+      </div>
+
+      <div class="real-card">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Restaurant
+          </div>
+          <img src="images/realisations/restaurant.jpg" alt="Site restaurant" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Restaurant</div>
+      </div>
+
+      <div class="real-card">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Pizzeria
+          </div>
+          <img src="images/realisations/pizzeria.jpg" alt="Site pizzeria" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Pizzeria</div>
+      </div>
+
+      <div class="real-card">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Livraison
+          </div>
+          <img src="images/realisations/livraison.jpg" alt="Site livraison" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Livraison</div>
+      </div>
+
+      <div class="real-card">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Ménage
+          </div>
+          <img src="images/realisations/menage.jpg" alt="Site ménage" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Ménage</div>
+      </div>
+
+      <div class="real-card">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Concessionnaire
+          </div>
+          <img src="images/realisations/concessionnaire.jpg" alt="Site concessionnaire de voiture" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Concessionnaire de voiture</div>
+      </div>
+
+      <div class="real-card">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Plombier
+          </div>
+          <img src="images/realisations/plombier.jpg" alt="Site plombier" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Plombier</div>
+      </div>
+
+      <div class="real-card">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Électricien
+          </div>
+          <img src="images/realisations/electricien.jpg" alt="Site électricien" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Électricien</div>
+      </div>
+
+      <div class="real-card">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Coach sportif
+          </div>
+          <img src="images/realisations/coach.jpg" alt="Site coach sportif" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Coach sportif</div>
+      </div>
+
+      <div class="real-card">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Paysagiste
+          </div>
+          <img src="images/realisations/paysagiste.jpg" alt="Site paysagiste" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Paysagiste</div>
+      </div>
+
+      <!-- Duplication pour boucle infinie -->
+      <div class="real-card" aria-hidden="true">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Salon de coiffure
+          </div>
+          <img src="images/realisations/coiffure.jpg" alt="" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Salon de coiffure</div>
+      </div>
+
+      <div class="real-card" aria-hidden="true">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Restaurant
+          </div>
+          <img src="images/realisations/restaurant.jpg" alt="" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Restaurant</div>
+      </div>
+
+      <div class="real-card" aria-hidden="true">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Pizzeria
+          </div>
+          <img src="images/realisations/pizzeria.jpg" alt="" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Pizzeria</div>
+      </div>
+
+      <div class="real-card" aria-hidden="true">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Livraison
+          </div>
+          <img src="images/realisations/livraison.jpg" alt="" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Livraison</div>
+      </div>
+
+      <div class="real-card" aria-hidden="true">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Ménage
+          </div>
+          <img src="images/realisations/menage.jpg" alt="" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Ménage</div>
+      </div>
+
+      <div class="real-card" aria-hidden="true">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Concessionnaire
+          </div>
+          <img src="images/realisations/concessionnaire.jpg" alt="" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Concessionnaire de voiture</div>
+      </div>
+
+      <div class="real-card" aria-hidden="true">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Plombier
+          </div>
+          <img src="images/realisations/plombier.jpg" alt="" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Plombier</div>
+      </div>
+
+      <div class="real-card" aria-hidden="true">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Électricien
+          </div>
+          <img src="images/realisations/electricien.jpg" alt="" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Électricien</div>
+      </div>
+
+      <div class="real-card" aria-hidden="true">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Coach sportif
+          </div>
+          <img src="images/realisations/coach.jpg" alt="" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Coach sportif</div>
+      </div>
+
+      <div class="real-card" aria-hidden="true">
+        <div class="real-card-img">
+          <div class="real-placeholder">
+            <svg class="real-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            Paysagiste
+          </div>
+          <img src="images/realisations/paysagiste.jpg" alt="" loading="lazy" width="260" height="325">
+        </div>
+        <div class="real-card-label">Paysagiste</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CARTES NFC -->
+<section id="nfc">
+  <div class="nfc-layout">
+    <div class="fade-up">
+      <div class="section-badge">Carte NFC connectée</div>
+      <h2 class="section-title">Un tap.<br><span class="accent">Des résultats.</span></h2>
+      <p class="section-sub" style="margin-bottom:0">La carte de visite du futur. Tes clients approchent leur téléphone et en une seconde, ils accèdent à ton profil, ta fiche Google, ton Instagram.</p>
+
+      <div class="nfc-steps">
+        <div class="nfc-step">
+          <div class="nfc-step-num">1</div>
+          <div>
+            <div class="nfc-step-title">Le client approche son téléphone</div>
+            <div class="nfc-step-desc">Compatible iOS et Android. Aucune app requise.</div>
+          </div>
+        </div>
+        <div class="nfc-step">
+          <div class="nfc-step-num">2</div>
+          <div>
+            <div class="nfc-step-title">Il accède à ton profil instantanément</div>
+            <div class="nfc-step-desc">Fiche Google, réseaux sociaux, site web. Tout en un.</div>
+          </div>
+        </div>
+        <div class="nfc-step">
+          <div class="nfc-step-num">3</div>
+          <div>
+            <div class="nfc-step-title">Il laisse un avis ou te contacte</div>
+            <div class="nfc-step-desc">Ton nombre d'avis Google augmente automatiquement.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nfc-price-box">
+        <div class="nfc-price-amount">45€</div>
+        <div class="nfc-price-label">Par carte · Impression premium<br>Livraison incluse</div>
+      </div>
+    </div>
+
+    <div class="nfc-card-visual fade-up">
+      <div class="nfc-glow" aria-hidden="true"></div>
+      <img class="nfc-demo-img" src="images/nfc-demo.png" alt="Carte NFC connectée, un tap suffit" loading="lazy" width="1200" height="900">
+    </div>
   </div>
 </section>
 
@@ -1569,51 +1868,6 @@ footer {
       <a href="https://wa.me/33753344590?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9%20par%20le%20pack%20Domination%20%C3%A0%20799%E2%82%AC%2Fmois.%20Pouvez-vous%20m%27en%20dire%20plus%20%3F" class="offre-btn offre-btn-secondary">Démarrer →</a>
     </div>
 
-  </div>
-</section>
-
-<!-- CARTES NFC -->
-<section id="nfc">
-  <div class="nfc-layout">
-    <div class="fade-up">
-      <div class="section-badge">Carte NFC connectée</div>
-      <h2 class="section-title">Un tap.<br><span class="accent">Des résultats.</span></h2>
-      <p class="section-sub" style="margin-bottom:0">La carte de visite du futur. Tes clients approchent leur téléphone et en une seconde, ils accèdent à ton profil, ta fiche Google, ton Instagram.</p>
-
-      <div class="nfc-steps">
-        <div class="nfc-step">
-          <div class="nfc-step-num">1</div>
-          <div>
-            <div class="nfc-step-title">Le client approche son téléphone</div>
-            <div class="nfc-step-desc">Compatible iOS et Android. Aucune app requise.</div>
-          </div>
-        </div>
-        <div class="nfc-step">
-          <div class="nfc-step-num">2</div>
-          <div>
-            <div class="nfc-step-title">Il accède à ton profil instantanément</div>
-            <div class="nfc-step-desc">Fiche Google, réseaux sociaux, site web. Tout en un.</div>
-          </div>
-        </div>
-        <div class="nfc-step">
-          <div class="nfc-step-num">3</div>
-          <div>
-            <div class="nfc-step-title">Il laisse un avis ou te contacte</div>
-            <div class="nfc-step-desc">Ton nombre d'avis Google augmente automatiquement.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="nfc-price-box">
-        <div class="nfc-price-amount">45€</div>
-        <div class="nfc-price-label">Par carte · Impression premium<br>Livraison incluse</div>
-      </div>
-    </div>
-
-    <div class="nfc-card-visual fade-up">
-      <div class="nfc-glow" aria-hidden="true"></div>
-      <img class="nfc-demo-img" src="images/nfc-demo.png" alt="Carte NFC connectée, un tap suffit">
-    </div>
   </div>
 </section>
 
@@ -1686,110 +1940,86 @@ footer {
     <h2 class="section-title">Ils nous ont fait <span class="accent">confiance.</span></h2>
     <p class="section-sub">Des commerçants locaux comme toi, qui ont décidé de prendre leur présence digitale au sérieux.</p>
   </div>
-  <div class="resultats-carousel" id="resultatsCarousel">
-    <div class="resultats-track" id="resultatsTrack">
+  <div class="temoignages-bento fade-up">
 
-      <div class="resultat-card">
-        <div class="resultat-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <div class="resultat-text">"Avant Fidélys, j'avais 4 avis Google depuis 2 ans. En moins d'un mois, on est passé à plus de 50. Les clients mentionnent maintenant qu'ils nous ont trouvés sur Google."</div>
-        <div class="resultat-author">
-          <div class="resultat-avatar">K</div>
-          <div>
-            <div class="resultat-name">Clintown Barber</div>
-            <div class="resultat-role">Salon de coiffure · Le Havre</div>
-          </div>
+    <!-- Card 1 — Clintown Barber (grande, colonne 1) -->
+    <div class="temoignage-card bg-noir tc-1">
+      <div class="temoignage-stars">★★★★★</div>
+      <p class="temoignage-texte">"Avant Fidélys, on était invisibles sur Google. En moins d'un mois, les clients nous trouvent directement. Le site qu'ils nous ont fait est propre, professionnel, exactement ce qu'on voulait."</p>
+      <div class="temoignage-footer">
+        <div class="temoignage-auteur">
+          <span class="temoignage-nom">Clintown Barber</span>
+          <span class="temoignage-role">Salon de coiffure · Le Havre</span>
         </div>
-        <div class="resultat-stat">📈 +47 avis en 30 jours</div>
+        <img src="images/testimonials/clintown.jpg" alt="Clintown Barber" class="temoignage-photo" loading="lazy" width="56" height="56" onerror="this.removeAttribute('src')">
       </div>
-
-      <div class="resultat-card">
-        <div class="resultat-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <div class="resultat-text">"Les cartes NFC ont changé la façon dont mes employés se présentent. Professionnel, moderne, et les clients adorent l'effet quand ils approchent leur téléphone."</div>
-        <div class="resultat-author">
-          <div class="resultat-avatar">M</div>
-          <div>
-            <div class="resultat-name">Commerce Local</div>
-            <div class="resultat-role">Gérant · Le Havre</div>
-          </div>
-        </div>
-        <div class="resultat-stat">💳 8 cartes NFC déployées</div>
-      </div>
-
-      <div class="resultat-card">
-        <div class="resultat-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <div class="resultat-text">"Simple, efficace, et des vrais résultats. Je n'avais pas le temps de gérer mon Instagram, maintenant c'est fait, et ça me ramène des clients."</div>
-        <div class="resultat-author">
-          <div class="resultat-avatar">S</div>
-          <div>
-            <div class="resultat-name">Salon de Beauté</div>
-            <div class="resultat-role">Gérante · Le Havre</div>
-          </div>
-        </div>
-        <div class="resultat-stat">📱 +320 abonnés en 60 jours</div>
-      </div>
-
-      <div class="resultat-card">
-        <div class="resultat-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <div class="resultat-text">"On avait du mal à être visibles en dehors du quartier. Fidélys a tout changé avec notre fiche Google. On reçoit maintenant des clients qui viennent spécialement de l'autre rive."</div>
-        <div class="resultat-author">
-          <div class="resultat-avatar">R</div>
-          <div>
-            <div class="resultat-name">Boulangerie Beausoleil</div>
-            <div class="resultat-role">Boulangerie artisanale · Rouen</div>
-          </div>
-        </div>
-        <div class="resultat-stat">🌟 Note Google 3,8 → 4,9</div>
-      </div>
-
-      <div class="resultat-card">
-        <div class="resultat-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <div class="resultat-text">"En deux mois, mes posts Instagram ont transformé mon carnet de rendez-vous. Je suis complète trois semaines à l'avance. Je n'aurais jamais cru que les réseaux pouvaient avoir autant d'impact."</div>
-        <div class="resultat-author">
-          <div class="resultat-avatar">N</div>
-          <div>
-            <div class="resultat-name">Institut Nadia K.</div>
-            <div class="resultat-role">Institut de beauté · Bordeaux</div>
-          </div>
-        </div>
-        <div class="resultat-stat">📅 Agenda complet 3 semaines à l'avance</div>
-      </div>
-
-      <div class="resultat-card">
-        <div class="resultat-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <div class="resultat-text">"La landing page créée pour notre menu du soir génère plus de réservations que tout ce qu'on faisait avant. Mes clients me disent qu'ils ont l'impression que c'est un grand restaurant."</div>
-        <div class="resultat-author">
-          <div class="resultat-avatar">T</div>
-          <div>
-            <div class="resultat-name">Le Bistro de Théo</div>
-            <div class="resultat-role">Restaurant · Lyon</div>
-          </div>
-        </div>
-        <div class="resultat-stat">🍽️ +68% de réservations en ligne</div>
-      </div>
-
-      <div class="resultat-card">
-        <div class="resultat-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-        <div class="resultat-text">"Mes clients repartent avec une carte NFC et la flashent devant leurs amis. C'est devenu un argument de vente. J'ai eu 3 nouveaux clients cette semaine juste grâce à ça."</div>
-        <div class="resultat-author">
-          <div class="resultat-avatar">A</div>
-          <div>
-            <div class="resultat-name">Amara Cuts</div>
-            <div class="resultat-role">Barbershop · Nantes</div>
-          </div>
-        </div>
-        <div class="resultat-stat">💳 3 clients référés en 1 semaine</div>
-      </div>
-
     </div>
-  </div>
-  <div class="carousel-nav">
-    <button class="carousel-btn" id="resultsPrev" aria-label="Précédent">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-    </button>
-    <div class="carousel-dots" id="resultsDots"></div>
-    <button class="carousel-btn" id="resultsNext" aria-label="Suivant">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-    </button>
+
+    <!-- Card 2 — SEA Corporation (petite, colonne 1) -->
+    <div class="temoignage-card bg-vert-fonce tc-2">
+      <div class="temoignage-stars">★★★★★</div>
+      <p class="temoignage-texte">"Fidélys a su comprendre notre univers dès le départ. Le site reflète vraiment ce qu'on fait. Sérieux, réactifs, et le résultat est au-dessus de ce qu'on espérait."</p>
+      <div class="temoignage-footer">
+        <div class="temoignage-auteur">
+          <span class="temoignage-nom">SEA Corporation</span>
+          <span class="temoignage-role">Accompagnement entrepreneurial · Le Havre</span>
+        </div>
+        <img src="images/testimonials/sea.jpg" alt="SEA Corporation" class="temoignage-photo" loading="lazy" width="56" height="56" onerror="this.removeAttribute('src')">
+      </div>
+    </div>
+
+    <!-- Card 3 — Beauty Excel (colonne 2) -->
+    <div class="temoignage-card bg-vert-fonce tc-3">
+      <div class="temoignage-stars">★★★★★</div>
+      <p class="temoignage-texte">"On voulait un site qui donne envie d'acheter. C'est exactement ce qu'on a eu. Nos clientes nous disent qu'elles ont commandé directement après avoir vu le site."</p>
+      <div class="temoignage-footer">
+        <div class="temoignage-auteur">
+          <span class="temoignage-nom">Beauty Excel</span>
+          <span class="temoignage-role">Produits capillaires · Le Havre</span>
+        </div>
+        <img src="images/testimonials/beautyexcel.jpg" alt="Beauty Excel" class="temoignage-photo" loading="lazy" width="56" height="56" onerror="this.removeAttribute('src')">
+      </div>
+    </div>
+
+    <!-- Card 4 — Karim B. (colonne 2) -->
+    <div class="temoignage-card bg-noir tc-4">
+      <div class="temoignage-stars">★★★★★</div>
+      <p class="temoignage-texte">"J'avais du mal à me démarquer des autres pizzerias du quartier. Depuis que Fidélys gère ma fiche Google, je reçois des appels tous les jours de nouveaux clients."</p>
+      <div class="temoignage-footer">
+        <div class="temoignage-auteur">
+          <span class="temoignage-nom">Karim B.</span>
+          <span class="temoignage-role">Gérant · Pizzeria Al Forno, Rouen</span>
+        </div>
+        <img src="images/testimonials/client4.jpg" alt="Karim B." class="temoignage-photo" loading="lazy" width="56" height="56" onerror="this.removeAttribute('src')">
+      </div>
+    </div>
+
+    <!-- Card 5 — Nadia K. (colonne 2, vert accent) -->
+    <div class="temoignage-card bg-vert-accent tc-5">
+      <div class="temoignage-stars">★★★★★</div>
+      <p class="temoignage-texte">"Mon agenda est complet trois semaines à l'avance. Je n'aurais jamais cru que les réseaux sociaux pouvaient avoir autant d'impact sur mon carnet de rendez-vous."</p>
+      <div class="temoignage-footer">
+        <div class="temoignage-auteur">
+          <span class="temoignage-nom">Nadia K.</span>
+          <span class="temoignage-role">Gérante · Institut de beauté, Bordeaux</span>
+        </div>
+        <img src="images/testimonials/client5.jpg" alt="Nadia K." class="temoignage-photo" loading="lazy" width="56" height="56" onerror="this.removeAttribute('src')">
+      </div>
+    </div>
+
+    <!-- Card 6 — Théo M. (grande, colonne 3) -->
+    <div class="temoignage-card bg-noir tc-6">
+      <div class="temoignage-stars">★★★★★</div>
+      <p class="temoignage-texte">"La landing page créée pour notre menu du soir génère plus de réservations qu'avant. Mes clients ont l'impression d'aller dans un grand restaurant. Le détail fait tout."</p>
+      <div class="temoignage-footer">
+        <div class="temoignage-auteur">
+          <span class="temoignage-nom">Théo M.</span>
+          <span class="temoignage-role">Fondateur · Le Bistro de Théo, Lyon</span>
+        </div>
+        <img src="images/testimonials/client6.jpg" alt="Théo M." class="temoignage-photo" loading="lazy" width="56" height="56" onerror="this.removeAttribute('src')">
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -1898,52 +2128,6 @@ footer {
   }
 })();
 
-// Carousel témoignages
-(function() {
-  const carousel = document.getElementById('resultatsCarousel');
-  const track = document.getElementById('resultatsTrack');
-  const dotsContainer = document.getElementById('resultsDots');
-  const prevBtn = document.getElementById('resultsPrev');
-  const nextBtn = document.getElementById('resultsNext');
-  if (!carousel || !track) return;
-
-  const cards = Array.from(track.querySelectorAll('.resultat-card'));
-  const GAP = 20;
-  let current = 0;
-
-  function getPerView() { return window.innerWidth <= 768 ? 1 : 3; }
-  function getMaxIndex() { return Math.max(0, cards.length - getPerView()); }
-
-  function setCardWidths() {
-    const w = (carousel.offsetWidth - GAP * (getPerView() - 1)) / getPerView();
-    cards.forEach(c => c.style.width = w + 'px');
-  }
-
-  function buildDots() {
-    dotsContainer.innerHTML = '';
-    for (let i = 0; i <= getMaxIndex(); i++) {
-      const dot = document.createElement('span');
-      dot.className = 'carousel-dot' + (i === current ? ' active' : '');
-      dot.addEventListener('click', () => goTo(i));
-      dotsContainer.appendChild(dot);
-    }
-  }
-
-  function goTo(index) {
-    current = Math.max(0, Math.min(index, getMaxIndex()));
-    track.style.transform = `translateX(-${current * (cards[0].offsetWidth + GAP)}px)`;
-    prevBtn.disabled = current === 0;
-    nextBtn.disabled = current === getMaxIndex();
-    buildDots();
-  }
-
-  prevBtn.addEventListener('click', () => goTo(current - 1));
-  nextBtn.addEventListener('click', () => goTo(current + 1));
-  window.addEventListener('resize', () => { setCardWidths(); goTo(Math.min(current, getMaxIndex())); });
-
-  setCardWidths();
-  goTo(0);
-})();
 
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry, i) => {
@@ -1966,6 +2150,7 @@ function toggleMenu() {
     links.style.cssText = 'display:flex; flex-direction:column; position:fixed; top:68px; left:0; right:0; background:rgba(10,10,10,0.98); padding:24px 5vw; gap:20px; border-bottom:1px solid #1e1e1e; backdrop-filter:blur(20px);';
   }
 }
+
 
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-links a');
