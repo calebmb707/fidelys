@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>La Table du Port · Menu (démo Fidélys)</title>
+<link rel="icon" type="image/png" href="images/logo_fidelys.png">
+<link rel="stylesheet" href="fonts/polices-menu.css">
+<style>
+/* Menu de démonstration : identité propre au restaurant fictif, distincte de Fidélys */
+:root {
+  --creme: #f6f1e7;
+  --papier: #fffdf8;
+  --encre: #2b2620;
+  --gris: #7a7166;
+  --bordeaux: #8c2f39;
+  --ligne: #e4dccd;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+
+body {
+  background: var(--creme);
+  color: var(--encre);
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  padding-bottom: 84px;
+}
+
+.entete { text-align: center; padding: 44px 20px 22px; }
+.entete .ancre { font-size: 22px; color: var(--bordeaux); }
+.entete h1 { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 30px; line-height: 1.15; margin: 6px 0 6px; }
+.entete p { font-size: 13px; color: var(--gris); letter-spacing: 0.04em; }
+.entete .horaires { display: inline-block; margin-top: 12px; font-size: 12px; border: 1px solid var(--ligne); border-radius: 20px; padding: 4px 12px; color: var(--encre); background: var(--papier); }
+
+/* Onglets collants */
+.onglets {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  background: var(--creme);
+  border-bottom: 1px solid var(--ligne);
+  padding: 10px 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.onglets::-webkit-scrollbar { display: none; }
+
+.onglets a {
+  flex: 1;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gris);
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+}
+
+.onglets a.actif { background: var(--encre); color: var(--creme); }
+
+.categorie { padding: 26px 20px 8px; }
+.categorie h2 { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; font-size: 24px; color: var(--bordeaux); margin-bottom: 8px; }
+
+.plat { padding: 14px 0; border-bottom: 1px dashed var(--ligne); }
+.plat:last-child { border-bottom: none; }
+.plat-haut { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.plat h3 { font-family: 'Playfair Display', serif; font-weight: 500; font-size: 17px; }
+.plat .prix { font-weight: 700; font-size: 15px; white-space: nowrap; }
+.plat p { font-size: 13px; color: var(--gris); margin-top: 3px; }
+.plat .tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--bordeaux); border: 1px solid var(--bordeaux); border-radius: 10px; padding: 1px 7px; margin-left: 6px; vertical-align: middle; }
+
+/* Plats avec photo : vignette carrée à gauche */
+.plat.avec-photo { display: grid; grid-template-columns: 64px 1fr; column-gap: 12px; align-items: start; }
+.plat-photo { grid-row: span 2; width: 64px; height: 64px; border-radius: 10px; object-fit: cover; background: var(--ligne); }
+
+@media (min-width: 560px) {
+  .plat.avec-photo { grid-template-columns: 84px 1fr; column-gap: 16px; }
+  .plat-photo { width: 84px; height: 84px; }
+}
+
+.pied { text-align: center; padding: 28px 20px 12px; font-size: 11px; color: var(--gris); }
+.pied a { color: var(--gris); }
+
+/* Barre d'actions fixe */
+.actions {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  display: flex;
+  gap: 10px;
+  padding: 12px 14px calc(12px + env(safe-area-inset-bottom));
+  background: rgba(246,241,231,0.96);
+  border-top: 1px solid var(--ligne);
+}
+
+.actions a {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 13px;
+  border-radius: 12px;
+}
+
+.actions .reserver { background: var(--bordeaux); color: #fff; }
+.actions .itineraire { background: var(--papier); color: var(--encre); border: 1px solid var(--ligne); }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 90px;
+  transform: translateX(-50%) translateY(10px);
+  background: var(--encre);
+  color: var(--creme);
+  font-size: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+  width: max-content;
+  max-width: 90%;
+  text-align: center;
+}
+
+.toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<header class="entete">
+  <div class="ancre" aria-hidden="true">⚓</div>
+  <h1>La Table du Port</h1>
+  <p>Cuisine de la mer · Le Havre</p>
+  <span class="horaires">Ouvert aujourd'hui · 12h–14h30 · 19h–22h30</span>
+</header>
+
+<nav class="onglets" aria-label="Catégories du menu">
+  <a href="#entrees" class="actif">Entrées</a>
+  <a href="#plats">Plats</a>
+  <a href="#desserts">Desserts</a>
+  <a href="#boissons">Boissons</a>
+</nav>
+
+<section class="categorie" id="entrees">
+  <h2>Entrées</h2>
+  <div class="plat avec-photo"><img class="plat-photo" src="images/menu/huitres.webp" alt="Assiette d'huîtres" width="800" height="800" loading="lazy"><div class="plat-haut"><h3>Huîtres de Normandie (x6)</h3><span class="prix">14 €</span></div><p>Citron, vinaigre à l'échalote, pain de seigle beurré.</p></div>
+  <div class="plat avec-photo"><img class="plat-photo" src="images/menu/soupe-poissons.webp" alt="Soupe de poissons" width="800" height="800" loading="lazy"><div class="plat-haut"><h3>Soupe de poissons</h3><span class="prix">9 €</span></div><p>Rouille maison, croûtons et emmental râpé.</p></div>
+  <div class="plat avec-photo"><img class="plat-photo" src="images/menu/tartare-saumon.webp" alt="Tartare de saumon" width="800" height="800" loading="lazy"><div class="plat-haut"><h3>Tartare de saumon <span class="tag">Fait maison</span></h3><span class="prix">12 €</span></div><p>Avocat, citron vert, herbes fraîches.</p></div>
+  <div class="plat"><div class="plat-haut"><h3>Rillettes de maquereau</h3><span class="prix">8 €</span></div><p>Maquereau de la Manche, toasts grillés.</p></div>
+</section>
+
+<section class="categorie" id="plats">
+  <h2>Plats</h2>
+  <div class="plat avec-photo"><img class="plat-photo" src="images/menu/moules-frites.webp" alt="Moules-frites" width="800" height="800" loading="lazy"><div class="plat-haut"><h3>Moules marinières <span class="tag">Signature</span></h3><span class="prix">17 €</span></div><p>Vin blanc, échalotes, persil. Frites maison.</p></div>
+  <div class="plat avec-photo"><img class="plat-photo" src="images/menu/filet-bar.webp" alt="Filet de poisson grillé" width="800" height="800" loading="lazy"><div class="plat-haut"><h3>Filet de bar, beurre blanc</h3><span class="prix">24 €</span></div><p>Poisson du jour, légumes de saison, riz pilaf.</p></div>
+  <div class="plat avec-photo"><img class="plat-photo" src="images/menu/fish-chips.webp" alt="Fish and chips" width="800" height="800" loading="lazy"><div class="plat-haut"><h3>Fish &amp; chips du port</h3><span class="prix">18 €</span></div><p>Cabillaud en tempura, sauce tartare, salade.</p></div>
+  <div class="plat avec-photo"><img class="plat-photo" src="images/menu/burger-normand.webp" alt="Burger" width="800" height="800" loading="lazy"><div class="plat-haut"><h3>Burger normand</h3><span class="prix">19 €</span></div><p>Bœuf charolais, camembert fondant, oignons au cidre.</p></div>
+  <div class="plat"><div class="plat-haut"><h3>Risotto aux Saint-Jacques</h3><span class="prix">26 €</span></div><p>Noix snackées, parmesan, émulsion crustacés.</p></div>
+</section>
+
+<section class="categorie" id="desserts">
+  <h2>Desserts</h2>
+  <div class="plat"><div class="plat-haut"><h3>Teurgoule <span class="tag">Normandie</span></h3><span class="prix">7 €</span></div><p>Riz au lait à la cannelle, cuit longuement au four.</p></div>
+  <div class="plat avec-photo"><img class="plat-photo" src="images/menu/tarte-pommes.webp" alt="Tarte aux pommes" width="800" height="800" loading="lazy"><div class="plat-haut"><h3>Tarte aux pommes</h3><span class="prix">8 €</span></div><p>Crème fraîche d'Isigny.</p></div>
+  <div class="plat avec-photo"><img class="plat-photo" src="images/menu/moelleux-chocolat.webp" alt="Moelleux au chocolat" width="800" height="800" loading="lazy"><div class="plat-haut"><h3>Moelleux au chocolat</h3><span class="prix">8 €</span></div><p>Cœur coulant, glace vanille.</p></div>
+  <div class="plat avec-photo"><img class="plat-photo" src="images/menu/cafe-gourmand.webp" alt="Café gourmand et mignardises" width="800" height="800" loading="lazy"><div class="plat-haut"><h3>Café gourmand</h3><span class="prix">9 €</span></div><p>Trois mignardises du moment.</p></div>
+</section>
+
+<section class="categorie" id="boissons">
+  <h2>Boissons</h2>
+  <div class="plat"><div class="plat-haut"><h3>Cidre brut fermier (75 cl)</h3><span class="prix">16 €</span></div><p>Pays d'Auge.</p></div>
+  <div class="plat"><div class="plat-haut"><h3>Jus de pomme artisanal</h3><span class="prix">4 €</span></div><p>Pressé en Normandie.</p></div>
+  <div class="plat"><div class="plat-haut"><h3>Eau minérale (50 cl)</h3><span class="prix">3 €</span></div><p>Plate ou pétillante.</p></div>
+  <div class="plat"><div class="plat-haut"><h3>Café / Thé</h3><span class="prix">2,50 €</span></div><p>Expresso, allongé, thés en vrac.</p></div>
+</section>
+
+<footer class="pied">
+  <p>Prix nets, service compris. L'abus d'alcool est dangereux pour la santé.</p>
+  <p style="margin-top:8px;">Restaurant fictif · <a href="https://fidelys.pro/restaurants" target="_blank" rel="noopener">Menu créé par Fidélys</a></p>
+</footer>
+
+<div class="actions">
+  <a href="#" class="reserver" data-demo="Ici, le bouton ouvre ta réservation (WhatsApp, téléphone ou plateforme).">Réserver</a>
+  <a href="#" class="itineraire" data-demo="Ici, le bouton ouvre l'itinéraire vers ton restaurant dans Google Maps.">Itinéraire</a>
+</div>
+<div class="toast" role="status" aria-live="polite"></div>
+
+<script>
+// Onglet actif selon la catégorie visible
+(function () {
+  const onglets = document.querySelectorAll('.onglets a');
+  const categories = [...document.querySelectorAll('.categorie')];
+  const majOnglet = () => {
+    let courante = categories[0].id;
+    categories.forEach((c) => { if (c.getBoundingClientRect().top < 120) courante = c.id; });
+    if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) courante = categories[categories.length - 1].id;
+    onglets.forEach((o) => o.classList.toggle('actif', o.getAttribute('href') === '#' + courante));
+  };
+  window.addEventListener('scroll', majOnglet, { passive: true });
+  majOnglet();
+})();
+
+// Boutons de démonstration : message explicatif au lieu d'un vrai lien
+(function () {
+  const toast = document.querySelector('.toast');
+  let minuteur;
+  document.querySelectorAll('[data-demo]').forEach((bouton) => {
+    bouton.addEventListener('click', (e) => {
+      e.preventDefault();
+      toast.textContent = bouton.dataset.demo;
+      toast.classList.add('visible');
+      clearTimeout(minuteur);
+      minuteur = setTimeout(() => toast.classList.remove('visible'), 2600);
+    });
+  });
+})();
+</script>
+</body>
+</html>

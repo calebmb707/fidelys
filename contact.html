@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | Fidélys – Le Havre et partout en France</title>
+<meta name="description" content="Contacte Fidélys, agence digitale basée au Havre, partout en France : site web, fiche Google, réseaux sociaux, vidéo, cartes NFC, Google Ads. Réponse sous 24h.">
+<link rel="canonical" href="https://fidelys.pro/contact">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Fidélys">
+<meta property="og:title" content="Contact | Fidélys – Le Havre et partout en France">
+<meta property="og:description" content="Contacte Fidélys, agence digitale basée au Havre, partout en France : site web, fiche Google, réseaux sociaux, vidéo, cartes NFC, Google Ads. Réponse sous 24h.">
+<meta property="og:url" content="https://fidelys.pro/contact">
+<meta property="og:image" content="https://fidelys.pro/images/cartes-nfc.jpg">
+<link rel="icon" type="image/png" href="images/logo_fidelys.png">
+<link rel="apple-touch-icon" href="images/logo_fidelys.png">
+<link rel="preload" href="fonts/outfit-normal-400-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/nunito-normal-300-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/polices.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="index.html" class="nav-logo" aria-label="Fidélys, retour à l'accueil">
+    <img src="images/logo_fidelys.png" alt="Fidélys" width="47" height="36">
+  </a>
+
+  <ul class="nav-menu">
+    <li class="nav-dropdown">
+      <button class="nav-dropdown-btn" type="button" aria-expanded="false" aria-haspopup="true">
+        Services
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <ul class="nav-dropdown-panel">
+        <li><a href="site-web.html">Site web</a></li>
+        <li><a href="fiche-google.html">Fiche Google</a></li>
+        <li><a href="reseaux-sociaux-video.html">Réseaux sociaux & vidéo</a></li>
+        <li><a href="cartes-nfc.html">Cartes NFC</a></li>
+        <li><a href="google-ads.html">Google Ads</a></li>
+        <li><a href="restaurants.html">Restaurants</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <a href="contact.html" class="nav-cta">Nous contacter →</a>
+
+  <button class="nav-burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <div class="nav-mobile">
+    <a href="index.html">Accueil</a>
+    <div class="nav-mobile-label">Services</div>
+    <a href="site-web.html">Site web</a>
+    <a href="fiche-google.html">Fiche Google</a>
+    <a href="reseaux-sociaux-video.html">Réseaux sociaux & vidéo</a>
+    <a href="cartes-nfc.html">Cartes NFC</a>
+    <a href="google-ads.html">Google Ads</a>
+    <a href="restaurants.html">Restaurants</a>
+    <a href="contact.html" class="nav-mobile-cta">Nous contacter →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero" style="padding-bottom:40px;">
+  <div class="page-hero-inner">
+    <div class="section-badge">Contact</div>
+    <h1>Parlons de ton <span class="accent">commerce.</span></h1>
+    <p>Dis-nous en quelques mots où tu en es et ce que tu veux améliorer. On te répond sous 24h, sans engagement.</p>
+  </div>
+</section>
+
+<!-- FORMULAIRE -->
+<section class="section-alt" style="padding-top:40px;">
+  <div class="contact-layout">
+    <div class="form-card fade-up">
+      <div class="form-success" id="succes-contact">
+        <div class="form-success-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00FF87" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <h3>Message envoyé !</h3>
+        <p>Merci, on a bien reçu ta demande. On te répond sous 24h par téléphone, WhatsApp ou email.</p>
+      </div>
+      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-success="succes-contact">
+        <input type="hidden" name="form-name" value="contact">
+        <p class="hidden-field" aria-hidden="true"><label>Ne pas remplir : <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="c-entreprise">Nom de l'entreprise <span class="req">*</span></label>
+            <input class="form-input" id="c-entreprise" type="text" name="entreprise" autocomplete="organization" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="c-nom">Ton nom <span class="req">*</span></label>
+            <input class="form-input" id="c-nom" type="text" name="nom" autocomplete="name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="c-tel">Téléphone <span class="req">*</span></label>
+            <input class="form-input" id="c-tel" type="tel" name="telephone" autocomplete="tel" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="c-email">Email <span class="req">*</span></label>
+            <input class="form-input" id="c-email" type="email" name="email" autocomplete="email" required>
+          </div>
+          <div class="form-group full">
+            <label class="form-label" for="c-service">Service concerné <span class="req">*</span></label>
+            <select class="form-select" id="c-service" name="service" required>
+              <option value="" disabled selected>Choisis un service</option>
+              <option value="Site web" data-slug="site-web">Site web</option>
+              <option value="Fiche Google" data-slug="fiche-google">Fiche Google</option>
+              <option value="Réseaux sociaux & vidéo" data-slug="reseaux-sociaux-video">Réseaux sociaux & vidéo</option>
+              <option value="Cartes NFC" data-slug="cartes-nfc">Cartes NFC</option>
+              <option value="Google Ads" data-slug="google-ads">Google Ads</option>
+              <option value="Restaurants" data-slug="restaurants">Restaurants</option>
+              <option value="Autre" data-slug="autre">Autre</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label class="form-label" for="c-message">Message <span class="req">*</span></label>
+            <textarea class="form-textarea" id="c-message" name="message" placeholder="Ton activité, ce que tu veux améliorer, tes délais…" required></textarea>
+          </div>
+          <div class="form-group full">
+            <label class="form-check"><input type="checkbox" name="rgpd" value="accepte" required> <span>J'accepte que mes informations soient utilisées pour répondre à ma demande. <a href="mentions-legales.html#confidentialite">En savoir plus</a> <span class="req">*</span></span></label>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary form-submit">Envoyer ma demande →</button>
+        <p class="form-error">L'envoi a échoué. Réessaie ou écris-nous directement sur WhatsApp.</p>
+      </form>
+    </div>
+
+    <aside class="contact-aside fade-up">
+      <a href="https://wa.me/33753344590?text=Bonjour%2C%20je%20vous%20contacte%20depuis%20le%20site%20Fid%C3%A9lys." class="contact-wa-btn" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Écrire sur WhatsApp</a>
+      <a href="mailto:fidelysagency@gmail.com" class="contact-info-item">
+        <div><div class="contact-info-label">Email</div><div class="contact-info-value">fidelysagency@gmail.com</div></div>
+      </a>
+      <div class="contact-info-item">
+        <div><div class="contact-info-label">Délai</div><div class="contact-info-value">Réponse sous 24h</div></div>
+      </div>
+      <div class="contact-info-item">
+        <div><div class="contact-info-label">Localisation</div><div class="contact-info-value">Basé au Havre · Partout en France</div></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="split reverse">
+    <div class="split-aside fade-up">
+      <div class="section-badge">FAQ</div>
+      <h2 class="section-title">Questions <span class="accent">fréquentes</span></h2>
+    </div>
+    <div class="faq">
+      <details class="fade-up">
+        <summary>Vous travaillez seulement au Havre ?</summary>
+        <div class="faq-answer">Non. On est basés au Havre, mais on accompagne des commerçants partout en France. La plupart de nos services se font entièrement à distance.</div>
+      </details>
+      <details class="fade-up">
+        <summary>Sous combien de temps répondez-vous ?</summary>
+        <div class="faq-answer">Sous 24h, par téléphone, WhatsApp ou email selon ce que tu préfères.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="images/logo_fidelys.png" alt="Fidélys" width="58" height="44" loading="lazy">
+      <p>Fidélys, agence digitale pour les commerçants et artisans. Sites web, fiche Google, réseaux sociaux, vidéo et cartes NFC.</p>
+      <p class="footer-ancrage">Basé au Havre, Normandie · Interventions partout en France</p>
+      <a href="https://www.instagram.com/fidelys76/" class="footer-social" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/></svg>
+        Suivre Fidélys sur Instagram
+      </a>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="site-web.html">Site web</a></li>
+        <li><a href="fiche-google.html">Fiche Google</a></li>
+        <li><a href="reseaux-sociaux-video.html">Réseaux sociaux & vidéo</a></li>
+        <li><a href="cartes-nfc.html">Cartes NFC</a></li>
+        <li><a href="google-ads.html">Google Ads</a></li>
+        <li><a href="restaurants.html">Restaurants</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="contact.html">Nous contacter</a></li>
+        <li><a href="https://wa.me/33753344590?text=Bonjour%2C%20je%20vous%20contacte%20depuis%20le%20site%20Fid%C3%A9lys." target="_blank" rel="noopener">WhatsApp</a></li>
+        <li><a href="mailto:fidelysagency@gmail.com">fidelysagency@gmail.com</a></li>
+        <li><span>Basé au Havre · Partout en France</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 <span class="brand">Fidélys</span> · Agence digitale pour commerçants</div>
+    <div><a href="mentions-legales.html">Mentions légales</a> · <a href="mentions-legales.html#confidentialite">Confidentialité</a></div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOTTANT -->
+<a href="https://wa.me/33753344590?text=Bonjour%2C%20je%20vous%20contacte%20depuis%20le%20site%20Fid%C3%A9lys." class="wa-float" target="_blank" rel="noopener" aria-label="Nous écrire sur WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="#0A0A0A" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script src="script.js" defer></script>
+</body>
+</html>
