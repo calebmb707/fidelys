@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-40 -40 80 80">
+  <!-- Fleur extraite du logo Maison Garance (sans la tige) -->
+  <g fill="#1C3B2E">
+    <g transform="rotate(15)"><path d="M0 0C5.44-8.84 6.4-21.08 0-34-6.4-21.08-5.44-8.84 0 0Z"/></g>
+    <g transform="rotate(75)"><path d="M0 0C4.59-7.02 5.4-16.74 0-27-5.4-16.74-4.59-7.02 0 0Z"/></g>
+    <g transform="rotate(135)"><path d="M0 0C5.44-8.84 6.4-21.08 0-34-6.4-21.08-5.44-8.84 0 0Z"/></g>
+    <g transform="rotate(195)"><path d="M0 0C4.59-7.02 5.4-16.74 0-27-5.4-16.74-4.59-7.02 0 0Z"/></g>
+    <g transform="rotate(255)"><path d="M0 0C5.44-8.84 6.4-21.08 0-34-6.4-21.08-5.44-8.84 0 0Z"/></g>
+    <g transform="rotate(315)"><path d="M0 0C4.59-7.02 5.4-16.74 0-27-5.4-16.74-4.59-7.02 0 0Z"/></g>
+    <circle r="3.1"/>
+  </g>
+</svg>

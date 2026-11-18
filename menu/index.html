@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Maison Garance — La carte</title>
+  <meta name="description" content="La carte de Maison Garance, cuisine française de saison au Havre : entrées, plats et desserts, ingrédients et allergènes.">
+  <meta name="theme-color" content="#F6F6F2">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Maison Garance — La carte">
+  <meta property="og:description" content="Cuisine française de saison · Le Havre">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+
+    <!-- ========== VUE MENU ========== -->
+    <main id="vue-menu" class="vue">
+      <header class="entete">
+        <h1 class="entete__logo"><img src="assets/logo-garance.svg" alt="Maison Garance" width="200" height="163"></h1>
+        <p class="entete__sous-titre" data-champ="sousTitre"></p>
+      </header>
+
+      <nav class="onglets" aria-label="Catégories du menu"></nav>
+
+      <div id="sections"></div>
+
+      <footer class="pied">
+        <div class="carte infos">
+          <div class="infos__bloc">
+            <span class="infos__label">Horaires</span>
+            <span class="infos__valeur" data-champ="horaires"></span>
+          </div>
+          <div class="infos__bloc">
+            <span class="infos__label">Téléphone</span>
+            <a class="infos__lien" data-champ="telephone"></a>
+          </div>
+          <div class="infos__bloc">
+            <span class="infos__label">Adresse</span>
+            <a class="infos__lien" data-champ="adresse" target="_blank" rel="noopener"></a>
+          </div>
+        </div>
+        <a class="bouton-avis" data-champ="avis" target="_blank" rel="noopener">Laisser un avis</a>
+        <p class="credit" data-champ="credit"></p>
+      </footer>
+    </main>
+
+    <!-- ========== VUE FICHE PLAT ========== -->
+    <article id="vue-fiche" class="vue" hidden></article>
+
+    <noscript>
+      <p class="noscript">Activez JavaScript pour afficher la carte.</p>
+    </noscript>
+  </div>
+
+  <script src="js/menu-data.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
